@@ -45,8 +45,9 @@ class cell(rectangle):
 
             if buttons[0] == True:
                 if self.mine == True:
-                    pygame.draw.rect(self.surface, "red", [self.x, self.y, self.w, self.h])
-                    pygame.draw.rect(self.surface, "white", [self.x, self.y, self.w, self.h], 2, 2, 2, 2, 2, 2)
+                    self.picture('mine.svg')
+#                    pygame.draw.rect(self.surface, "red", [self.x, self.y, self.w, self.h])
+#                    pygame.draw.rect(self.surface, "white", [self.x, self.y, self.w, self.h], 2, 2, 2, 2, 2, 2)
                     return True
                 else:
                     pygame.draw.rect(self.surface, "gray", [self.x, self.y, self.w, self.h])
