@@ -33,6 +33,8 @@ class cell(rectangle):
         self.mine = mine
         self.nmines = 0
         self.on_call = False
+        self.flag = False
+
     
     def draw(self, color):
         return pygame.draw.rect(self.surface, color, [self.x, self.y, self.w, self.h], 2, 2, 2, 2, 2, 2)
@@ -40,8 +42,15 @@ class cell(rectangle):
     def on_click(self, x, y, buttons):
         if x >= self.x and x <= (self.x + self.w) and y >= self.y and y <= (self.y + self.h):
             # mark cell by flag
+
             if buttons[2] == True:
-                self.picture('red-flag-icon.svg')
+                if self.flag == True:
+                    self.flag = False
+                    pygame.draw.rect(self.surface, "white", [self.x, self.y, self.w, self.h])
+                    pygame.draw.rect(self.surface, "gray", [self.x, self.y, self.w, self.h], 2, 2, 2, 2, 2, 2)
+                else:
+                    self.picture('red-flag-icon.svg')
+                    self.flag = True
 
             if buttons[0] == True:
                 if self.mine == True:
