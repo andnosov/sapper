@@ -10,7 +10,7 @@ screen_height = cell_size * square_size
 
 # pygame setup
 pygame.init()
-pygame.display.set_caption('Игра Сапер')
+pygame.display.set_caption('Игра Сапер Андрея')
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 running = True
