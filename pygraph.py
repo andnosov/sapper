@@ -34,7 +34,7 @@ class cell(rectangle):
         self.nmines = 0
         self.on_call = False
         self.flag = False
-
+        self.opened = False
     
     def draw(self, color):
         return pygame.draw.rect(self.surface, color, [self.x, self.y, self.w, self.h], 2, 2, 2, 2, 2, 2)
@@ -43,7 +43,7 @@ class cell(rectangle):
         if x >= self.x and x <= (self.x + self.w) and y >= self.y and y <= (self.y + self.h):
             # mark cell by flag
 
-            if buttons[2] == True:
+            if buttons[2] == True and self.opened == False:
                 if self.flag == True:
                     self.flag = False
                     pygame.draw.rect(self.surface, "white", [self.x, self.y, self.w, self.h])
@@ -125,6 +125,7 @@ class field(rectangle):
             return
         
         c.on_click(ix * self.size_a, iy * self.size_a, (True, True, True))
+        c.opened = True
 
         # it's free of nearby mines cell, then check neigbors
         c.on_call = True # mark this cell that it's in progress of recursion
@@ -143,6 +144,7 @@ class field(rectangle):
             if n.nmines > 0:
                 # show number of near mines and continue
                 n.on_click(nx * self.size_a, ny * self.size_a, (True, True, True))
+                n.opened = True
                 continue
 
             # recurse for zero nearby mines cell
@@ -161,6 +163,7 @@ class field(rectangle):
             for y in range(0, self.w_cells):
                 for x in range(0, self.h_cells):
                     self.fields[y][x].on_click(x * self.size_a, y * self.size_a, buttons)
+                    self.fields[y][x].opened = True
         else: 
             # do recursion to clean-up free of mines area            
             # clean up all cells 'on_call' flag
